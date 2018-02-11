@@ -24,13 +24,14 @@
       0.8 + Math.random() * 0.15,
       Math.random() * 0.3)
 
-    for (var i = 0; i < Math.random() * 10; i++) {
+    var nMountains = 7 + Math.random() * 6
+    for (var i = 0; i < nMountains; i++) {
       terrain.terrainBuilders.mountain(
         heightMap, 
         128 + Math.random() * 256,
         128 + Math.random() * 256,
-        0.15 + Math.random() * 0.8,
-        0.85 + Math.random() * 0.13,
+        0.15 + Math.random() * 0.6,
+        0.85 + Math.random() * 0.14,
         Math.random() * 0.15)
     }
 
