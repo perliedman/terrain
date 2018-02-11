@@ -1,0 +1,29 @@
+{
+  "name": "terrain",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "directories": {
+    "example": "examples",
+    "test": "test"
+  },
+  "scripts": {
+    "dev": "npm-run-parallel watch serve",
+    "watch": "mkdirp dist && watchify src/index.js -s terrain -o dist/terrain.js",
+    "serve": "http-server",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "d3-voronoi": "^1.1.2",
+    "poisson-disc-sampler": "^1.1.0"
+  },
+  "devDependencies": {
+    "http-server": "^0.11.1",
+    "mkdirp": "^0.5.1",
+    "npm-run-parallel": "^0.6.0",
+    "watchify": "^3.10.0"
+  }
+}
