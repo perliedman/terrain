@@ -15,10 +15,12 @@ module.exports = class Graph {
 
     const v = voronoi()
       .size([options.width, options.height])
-    const diagram = v(this.sites)
 
-    this.polygons = diagram.polygons()
-    this.triangles = diagram.triangles()
+    this.diagram = v(this.sites)
+    this.polygons = this.diagram.polygons()
+    this.triangles = this.diagram.triangles()
+
+    this._findNeighbors()
   }
 
   _createPoints (numberPoints, options) {
@@ -41,5 +43,24 @@ module.exports = class Graph {
 
       return points.filter(p => p)
     }
+  }
+
+  _findNeighbors () {
+    this.polygons.forEach((poly, i) => {
+      poly.index = i; // index of this element
+      poly.height = 0;
+      const neighbors = [];
+      this.diagram.cells[i].halfedges.forEach(e => {
+        const edge = this.diagram.edges[e]
+        if (edge.left && edge.right) {
+          var ea = edge.left.index;
+          if (ea === i) {
+            ea = edge.right.index;
+          }
+          neighbors.push(ea);
+        }
+      })
+      poly.neighbors = neighbors;
+    });
   }
 }
