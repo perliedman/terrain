@@ -1,3 +1,4 @@
 module.exports = {
-  Graph: require('./graph')
+  Graph: require('./graph'),
+  HeightMap: require('./height-map')
 }
