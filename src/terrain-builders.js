@@ -19,6 +19,10 @@ module.exports = {
     const dh = minMax[1] - minMax[0]
 
     return heightMap.mapHeights((_, i) => (heightMap.heights[i] - minMax[0]) / dh)
+  },
+  peaky (heightMap) {
+    this.normalize(heightMap)
+    return heightMap.mapHeights((_, i) => Math.sqrt(heightMap.heights[i]))
   }
 }
 
