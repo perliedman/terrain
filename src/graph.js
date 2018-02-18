@@ -23,6 +23,10 @@ module.exports = class Graph {
     this._findNeighbors()
   }
 
+  map (fn) {
+    return this.polygons.map(fn)
+  }
+
   _createPoints (numberPoints, options) {
     if (Array.isArray(numberPoints)) {
       return numberPoints.slice()
