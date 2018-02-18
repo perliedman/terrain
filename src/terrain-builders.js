@@ -6,10 +6,10 @@ module.exports = {
     return modNeighbors(heightMap, x, y, height, radius, sharpness, (h, j) => h * radius)
   },
   relax (heightMap) {
-    return heightMap.mapHeights((poly, i) =>
+    return heightMap.mapHeights((poly, h) =>
       poly.neighbors.reduce(
-        (sumHeight, neighborIndex) => sumHeight + heightMap.heights[neighborIndex],
-        heightMap.heights[i]) / (poly.neighbors.length + 1))
+        (sumHeight, neighborIndex) => sumHeight + heightMap.heights[neighborIndex], h) /
+      (poly.neighbors.length + 1))
   },
   normalize (heightMap) {
     const minMax = heightMap.heights.reduce((minMax, h) => [
@@ -18,11 +18,11 @@ module.exports = {
     ], [Number.MAX_VALUE, Number.MIN_VALUE])
     const dh = minMax[1] - minMax[0]
 
-    return heightMap.mapHeights((_, i) => (heightMap.heights[i] - minMax[0]) / dh)
+    return heightMap.mapHeights((_, h) => (h - minMax[0]) / dh)
   },
   peaky (heightMap) {
     this.normalize(heightMap)
-    return heightMap.mapHeights((_, i) => Math.sqrt(heightMap.heights[i]))
+    return heightMap.mapHeights((_, h) => Math.sqrt(h))
   }
 }
 

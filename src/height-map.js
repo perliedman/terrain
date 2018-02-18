@@ -5,7 +5,7 @@ module.exports = class HeightMap {
   }
 
   mapHeights (fn) {
-    this.heights = this.graph.map(fn)
+    this.heights = this.graph.map((poly, i) => fn(poly, this.heights[i], i))
     return this
   }
 }
