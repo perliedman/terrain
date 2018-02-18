@@ -4,6 +4,12 @@ module.exports = {
   },
   mountain (heightMap, x, y, height, radius, sharpness) {
     return modNeighbors(heightMap, x, y, height, radius, sharpness, (h, j) => h * radius)
+  },
+  relax (heightMap) {
+    return heightMap.mapHeights((poly, i) =>
+      poly.neighbors.reduce(
+        (sumHeight, neighborIndex) => sumHeight + heightMap.heights[neighborIndex],
+        heightMap.heights[i]) / (poly.neighbors.length + 1))
   }
 }
 
