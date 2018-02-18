@@ -1,8 +1,8 @@
 module.exports = {
-  island (heightMap, x, y, height, radius, sharpness) {
+  mountain (heightMap, x, y, height, radius, sharpness) {
     return modNeighbors(heightMap, x, y, height, radius, sharpness, (h, j) => heightMap.heights[j] * radius)
   },
-  mountain (heightMap, x, y, height, radius, sharpness) {
+  hill (heightMap, x, y, height, radius, sharpness) {
     return modNeighbors(heightMap, x, y, height, radius, sharpness, (h, j) => h * radius)
   },
   relax (heightMap) {
@@ -23,6 +23,11 @@ module.exports = {
   peaky (heightMap) {
     this.normalize(heightMap)
     return heightMap.mapHeights((_, h) => Math.sqrt(h))
+  },
+  slope (heightMap, dir) {
+    return heightMap.mapHeights((poly, h, i) => h +
+      heightMap.graph.sites[i][0] * dir[0] +
+      heightMap.graph.sites[i][1] * dir[1])
   }
 }
 
@@ -47,7 +52,7 @@ function modNeighbors(heightMap, x, y, height, radius, sharpness, falloffFn) {
       if (!used[e]) {
         const mod = 1 + Math.random() * sharpness * 2 - sharpness
 
-        heights[e] = Math.min(1, heights[e] + height * mod)
+        heights[e] = heights[e] + height * mod
         used[e] = true
         queue.push(e)
       }
