@@ -10,6 +10,15 @@ module.exports = {
       poly.neighbors.reduce(
         (sumHeight, neighborIndex) => sumHeight + heightMap.heights[neighborIndex],
         heightMap.heights[i]) / (poly.neighbors.length + 1))
+  },
+  normalize (heightMap) {
+    const minMax = heightMap.heights.reduce((minMax, h) => [
+      Math.min(minMax[0], h),
+      Math.max(minMax[1], h)
+    ], [Number.MAX_VALUE, Number.MIN_VALUE])
+    const dh = minMax[1] - minMax[0]
+
+    return heightMap.mapHeights((_, i) => (heightMap.heights[i] - minMax[0]) / dh)
   }
 }
 
